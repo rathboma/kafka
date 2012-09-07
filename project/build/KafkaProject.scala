@@ -40,8 +40,10 @@ class KafkaProject(info: ProjectInfo) extends ParentProject(info) with IdeaProje
   val rat = "org.apache.rat" % "apache-rat" % "0.8"
 
   class CoreKafkaProject(info: ProjectInfo) extends DefaultProject(info)
-     with IdeaProject with CoreDependencies with TestDependencies with CompressionDependencies {
+     with IdeaProject with CoreDependencies with TestDependencies with CompressionDependencies with assembly.AssemblyBuilder {
    val corePackageAction = packageAllAction
+
+   override def mainClass = Some("kafka.Kafka")
 
   //The issue is going from log4j 1.2.14 to 1.2.15, the developers added some features which required
   // some dependencies on various sun and javax packages.
